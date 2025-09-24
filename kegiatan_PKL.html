@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>kenangan pkl</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f2f2f7;
+      transition: 0.3s;
+    }
+
+    /* Halaman */
+    .page {
+      display: none;
+      padding: 20px;
+      min-height: calc(100vh - 60px);
+    }
+    .page.active {
+      display: block;
+    }
+
+    /* Halaman utama */
+    .home h2 {
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      margin-top: 30px;
+      color: #007aff;
+    }
+    .home p {
+      text-align: center;
+      font-size: 16px;
+    }
+
+    /* Settings */
+    .settings-container {
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .setting-item {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .setting-item:hover {
+      background: #333;
+    }
+    .setting-item i {
+      font-size: 20px;
+      margin-right: 15px;
+      color: #007aff;
+    }
+    .setting-text {
+      flex: 1;
+      font-size: 16px;
+    }
+    .setting-arrow {
+      color: #999;
+    }
+    .toggle {
+      position: relative;
+      width: 45px;
+      height: 24px;
+      background: #ccc;
+      border-radius: 24px;
+      transition: 0.3s;
+    }
+    .toggle::before {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      transition: 0.3s;
+    }
+    .toggle.active {
+      background: #007aff;
+    }
+    .toggle.active::before {
+      transform: translateX(21px);
+    }
+
+    /* Navigasi bawah */
+    .navbar {
+      position: fixed;
+      margin-top: 50px;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: #f2f2f7;
+      border-top: 1px solid #ddd;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      font-family: 'Orbitron', sans-serif;
+    }
+    .nav-item {
+      flex: 1;
+      text-align: center;
+      color: #666;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 5px 0;
+    }
+    .nav-item i {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 3px;
+    }
+    .nav-item.active {
+      color: #007aff;
+    }
+
+    /* Mode gelap */
+    body.dark {
+      background: #1c1c1e;
+      color: #eee;
+    }
+    body.dark .settings-container {
+      background: #2c2c2e;
+    }
+    body.dark .setting-item {
+      border-bottom: 1px solid #444;
+    }
+    body.dark .navbar {
+      background: #2c2c2e;
+      border-color: #444;
+    }
+
+    /* Pop-up kontak */
+    #contactPage {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+    #contactPage .box {
+      color: #ffffff;
+      background: #333;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 400px;
+      text-align: justify;
+    }
+    #contactPage h2 {
+      font-family: 'Orbitron', sans-serif;
+      color: #007aff;
+      margin-bottom: 10px;
+    }
+    #contactPage button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #007aff;
+      color: white;
+      cursor: pointer;
+    }
+  a {                
+  font-weight: bold;    
+  text-decoration: none; 
+}
+  .card {
+      background: rgba(255,255,255,0.0);
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+      margin-bottom: 45px;
+      padding: 20px;
+    }
+  .card p {
+    text-align: justify;
+  }
+  .card img {
+    width: 320px;
+    height: auto;
+  }
+    .card h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: bold;
+      margin-top: 0;
+      font-size: 22px;
+    }
+  .card-produk {
+      background: rgba(255,255,255,0.0);
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+      margin-bottom: 45px;
+      padding: 20px;
+    }
+  .card-produk p {
+    text-align: center;
+  }
+  .card-produk h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: bold;
+      margin-top: 0;
+      font-size: 22px;
+    }
+  .produk-img {
+    width: 320px;
+    height: auto;
+    border-radius: 25px;
+  }
+  .judul-produk {
+    text-align: center;
+  }
+  .text-instagram {
+  background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+  .text-gmail {
+  background: linear-gradient(90deg, #d93025, #f9ab00, #34a853);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+  .text-whatsapp {
+  background: linear-gradient(90deg, #25D366, #128C7E);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+  .select {
+  width: 315px;
+  color: white;
+  padding:10px 10px;
+  border-radius:20px;
+  border:1px solid #e6e9ef;
+  background:#333;
+}
+  iframe {
+      width: 100%;
+      height: 250px;
+      border: 0;
+      border-radius: 12px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="home" class="page home active">
+    <h2>PRAKTEK KERJA LAPANGAN</h2>
+    <hr><br>
+    <div class="card">
+      <h3>daftar isi</h3>
+  <select id="daftarIsi" class="select">
+    <option value="all">all</option>
+    <option value="perkenalan-diri">perkenalan diri</a></option>
+    <option value="sejarah-singkat">sejarah singkat</option>
+    <option value="visi-misi">visi & misi</option>
+    <option value="produk">produk</option>
+    <option value="kegiatan-pkl">kegiatan pkl</option>
+    <option value="kesan-pesan">kesan & pesan</option>
+  </select>
+    </div>
+    
+    <section id="perkenalan-diri">
+    <div class="card">
+      <h3>perkenalan diri</h3>
+      <p>sebelum mulai izinkan saya untuk memperkenalkan diri,
+        saya melaksanakan pkl bersama 2 teman saya, nama saya <b>muhammad idzhar al-asy`ari</b> dan teman saya bernama 
+        <b>naffi fajri salam pradana</b> dan <b>elieser endi irawan daeli</b>
+        <i>total 3 orang yang melaksanakan <b>PKL</b>:</i><br>
+        <b>
+        <ol>
+          <li>muhammad idzhar al-asy`ari</li>
+          <li>naffi fajri salam pradana</li>
+          <li>elieser endi irawan daeli</li>
+        </ol>
+        </b>
+        kami pkl di <b>PT.PARAMETRIK PRESISI</b> yang berlokasi di
+        <i>
+          kawasan pergudangan surya kadu, jl.telesonik no.10, kadu jaya, kec.curug, kab.tangerang,
+          banten 15810
+        </i>
+      </p>
+    </div>
+    </section>
+    
+    <section id="sejarah-singkat">
+    <div class="card">
+      <h3>sejarah singkat</h3>
+      <img src="https://i.imgur.com/ZPYppp7.png" alt="pt.parametrik presisi">
+      <p><b>PT PARAMETRIK PRESISI</b> berdiri sejak tahun 2008 dengan nama Parametric Indonesia , adalah perusahaan manufaktur yang bergerak di bidang Machinery, Contruction, Mould, Dies, Part Component & General Supplier untuk barang keperluan industri manufaktur.
+Tahun 2012 diubah nama menjadi PT. Parametrik Presisi dengan harapan semakin berkembangnya perusahaan, kami dapat terus memenuhi kebutuhan industri manufaktur di Indonesia.</p>
+    </div>
+    </section>
+  
+  <section id="visi-misi">
+    <div class="card">
+      <h3>visi & misi</h3>
+      <img src="https://i.imgur.com/ZPYppp7.png" alt="pt.parametrik presisi">
+      <p><b>VISI</b><br>
+        Menjadi mitra dalam pengembangan solusi Konstruksi dan Mesin di Indonesia.
+      </p>
+      <p><b>MISI</b><br>
+        Memberikan hasil proses produksi yang mengutamakan kualitas, presisi dan ketepatan waktu pengiriman melalui pengembangan manajemen, inovasi dan ahli layanan yang memberikan kontribusi kepada pelanggan, karyawan, pengusaha dan masyarakat umum.
+      </p>
+      </div>
+    </section>
+    
+    <section id="produk">
+    <div class="card-produk">
+      <h3>Galeri Produk</h3>
+      <img src="http://parametrikpresisi.com/wp-content/uploads/2015/01/ST28.jpg" class="produk-img" alt="produk1"><p class="judul-produk">cap 1</p>
+      <hr><br>
+      <img src="http://parametrikpresisi.com/wp-content/uploads/2015/01/ST27.jpg" class="produk-img" alt="produk2"><p class="judul-produk">cap 2</p>
+      <hr><br>
+      <img src="http://parametrikpresisi.com/wp-content/uploads/2015/01/ST26.jpg" class="produk-img" alt="produk3"><p class="judul-produk">cap 3</p>
+      <hr><br>
+      <img src="http://parametrikpresisi.com/wp-content/uploads/2015/01/ST25.jpg" class="produk-img" alt="produk4"><p class="judul-produk">cap 4</p>
+      <hr><br>
+      <img src="http://parametrikpresisi.com/wp-content/uploads/2015/01/ST23.jpg" class="produk-img" alt="produk4"><p class="judul-produk">cap 5</p>
+      <hr><br>
+      <img src="http://parametrikpresisi.com/wp-content/uploads/2015/01/ST22.jpg" class="produk-img" alt="produk4"><p class="judul-produk">cap 6</p>
+      <hr><br>
+      <img src="http://parametrikpresisi.com/wp-content/uploads/2015/01/ST21.jpg" class="produk-img" alt="produk4"><p class="judul-produk">cap 7</p>
+    </div>
+    </section>
+  
+  <section id="kegiatan-pkl">
+    <div class="card-produk">
+      <h3>kegiatan pkl</h3>
+      <img src="https://i.imgur.com/Qha6Spq.jpeg" class="produk-img" alt="pt.parametrik presisi"><p class="judul-produk">ngecat plat besi</p>
+      <img src="https://i.imgur.com/JrhLtzD.jpeg" class="produk-img" alt="pt.parametrik presisi"><p class="judul-produk"> </p>
+      <hr><br>
+      <img src="https://i.imgur.com/uLcaE9G.jpeg" class="produk-img" alt="pt.parametrik presisi"><p class="judul-produk">nyemper plat besi</p>
+      <hr><br>
+      <img src="https://i.imgur.com/3G5CKzy.jpeg" class="produk-img" alt="pt.parametrik presisi"><p class="judul-produk">motong besi kecil</p>
+      <hr><br>
+      <img src="https://i.imgur.com/FQ5uuYx.jpeg" class="produk-img" alt="pt.parametrik presisi"><p class="judul-produk">gerinda plat besi</p>
+      <hr><br>
+      <img src="https://i.imgur.com/o1uRg4W.jpeg" class="produk-img" alt="pt.parametrik presisi"><p class="judul-produk">reamer plat besi</p>
+      <img src="https://i.imgur.com/8fWb813.jpeg" class="produk-img" alt="pt.parametrik presisi"><p class="judul-produk"> </p>
+      <hr><br>
+      <p><b>VIDIO SINGKAT</b></p>
+      <video controls width="320px" height="auto" style="border-radius:20px;">
+  <source src="https://ik.imagekit.io/tffgja3ph/VID_20250924_003909.mp4?updatedAt=1758649495758" type="video/mp4">
+  Browser kamu tidak mendukung video tag.
+</video>
+    </div>
+  </section>
+  
+  <section id="kesan-pesan">
+    <div class="card">
+      <h3>kesan & pesan</h3>
+      <b>KESAN</b>
+      <ul>
+        <li>
+          <p>
+            Selama melaksanakan PKL di PT. Parametrik Presisi, saya merasa mendapatkan banyak pengalaman baru yang sebelumnya belum pernah saya rasakan di sekolah
+          </p>
+        </li>
+        <li>
+          <p>  
+Lingkungan kerja di perusahaan ini sangat nyaman dan para karyawan ramah serta mau membimbing kami dengan sabar
+          </p>
+        </li>
+        <li>
+          <p>
+            Kami jadi lebih mengenal dunia kerja yang sesungguhnya, mulai dari kedisiplinan, tanggung jawab, sampai cara kerja sama tim
+          </p>
+        </li>
+      </ul>
+      <b>PESAN</b>
+      <ul>
+        <li>
+          <p>
+            Semoga PT. Parametrik Presisi semakin maju, terus berkembang, dan menjadi perusahaan yang lebih besar lagi.
+          </p>
+        </li>
+        <li>
+          <p>
+            Harapan saya, kerjasama antara sekolah dengan perusahaan ini bisa terus berlanjut agar adik-adik kelas kami juga dapat merasakan manfaat PKL di sini.
+          </p>
+        </li>
+        <li>
+          <p>
+            Untuk teman-teman yang akan melaksanakan PKL, semoga bisa lebih semangat, disiplin, dan memanfaatkan kesempatan dengan sebaik-baiknya.
+          </p>
+        </li>
+      </ul>
+    </div>
+  </section>
+  
+  <section id="foto-random">
+    <div class="card-produk">
+      <h3>foto random</h3>
+      <img src="https://i.imgur.com/Qha6Spq.jpeg" class="produk-img" alt="pt.parametrik presisi"><p class="judul-produk">ngecat plat besi</p>
+      <hr><br>
+    </div>
+  </section>
+  
+ <section ids="lokasi">
+   <div class="card">
+  <h3>Peta Lokasi</h3>
+     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.4517787131936!2d106.5616216!3d-6.2039812!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69fc2555555555%3A0x81189f963825a4c8!2sPARAMETRIK%20PRESISI!5e0!3m2!1sen!2sid!4v1758714384535!5m2!1sen!2sid" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+     </div>
+ </section>
+  
+  </div>
+
+  <div id="settings" class="page settings">
+    <h2 style="text-align:center; margin-top:10px; font-family:Orbitron;">About</h2>
+    <div class="settings-container">
+      <div class="setting-item" onclick="toggleDarkMode(this)">
+        <i class="fa fa-moon"></i>
+        <div class="setting-text">Mode Gelap</div>
+        <div class="toggle"></div>
+      </div>
+      <div class="setting-item" onclick="openContact()">
+        <i class="fa fa-phone"></i>
+        <div class="setting-text">Kontak Developer</div>
+        <i class="fa fa-chevron-right setting-arrow"></i>
+      </div>
+    </div><br>
+    <div class="card-produk">
+     <p class="judul-produk">di buat untuk kenang-kenangan</p>
+    </div>
+  </div>
+
+  <div class="navbar">
+    <div class="nav-item active" onclick="showPage('home', this)">
+      <i class="fa fa-home"></i>
+      Home
+    </div>
+    <div class="nav-item" onclick="showPage('settings', this)">
+      <i class="fa fa-info-circle"></i>
+      About
+    </div>
+  </div>
+
+  <div id="contactPage">
+    <div class="box">
+      <h2>Developer</h2>
+      <p><strong>Nama:</strong> Muhammad Idzhar</p>
+      <p><strong>Email:</strong> <a href="mailto:smb_web@support.whatsapp.com" class="text-gmail">developer@gmail.com</a></p>
+      <p><strong>IG:</strong><a href="https://www.instagram.com/zhar_aje?igsh=a240Mmo1YmFkMDJz" class="text-instagram"> @zhar_aje</a></p>
+      <p><strong>kontak dev: </strong>
+        <a href="https://wa.me/6285811570814" class="text-whatsapp">
+           whatsapp
+        </a></p>
+      <button onclick="closeContact()">Tutup</button>
+    </div>
+  </div>
+
+  <script>
+  const daftarIsi = document.getElementById("daftarIsi");
+  daftarIsi.addEventListener("change", function () {
+    if (this.value) {
+      // scroll ke section sesuai id
+      document.getElementById(this.value).scrollIntoView({
+        behavior: "smooth"
+      });
+    } else {
+      // kalau pilih "all" balik ke atas
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  });
+  
+    function showPage(pageId, el) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(pageId).classList.add('active');
+
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    function toggleDarkMode(el) {
+      const toggle = el.querySelector('.toggle');
+      toggle.classList.toggle('active');
+      document.body.classList.toggle('dark');
+    }
+
+    function openContact() {
+      document.getElementById("contactPage").style.display = "flex";
+    }
+    function closeContact() {
+      document.getElementById("contactPage").style.display = "none";
+    }
+  </script>
+</body>
+</html>
